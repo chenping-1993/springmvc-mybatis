@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @description
+ * @description 通过 mybatis 的xml操作数据
  * @author: chenping
  * @create: 2019-10-31
  **/
 @RestController
 @Slf4j
-public class SysRoleController {
+@RequestMapping("/xml")
+public class XmlMybatisSysRoleController {
     @Autowired
     SysRoleService sysRoleService;
 
@@ -60,5 +61,16 @@ public class SysRoleController {
         return sysRoleMapper.selectLikeWithBind(roleName);
     }
 
+    /** 
+     * @Description:  插入
+     * @param: sysRole 
+     * @return: int 
+     * @Author: chenping
+     * @Date: 2019/12/5
+     **/
+    @PostMapping("/insert")
+    public int insert(@RequestBody SysRole sysRole) {
+        return sysRoleMapper.insert(sysRole);
+    }
 
 }

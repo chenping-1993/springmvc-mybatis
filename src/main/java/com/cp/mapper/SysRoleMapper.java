@@ -9,7 +9,7 @@ import java.util.List;
  * @author: chenping
  * @create: 2019-10-31
  **/
-public interface SysRoleMapper {
+public interface SysRoleMapper  {
 
     public List<SysRole> list();
 
@@ -27,4 +27,5 @@ public interface SysRoleMapper {
     public List<SysRole> selectLikeWithBind(String roleName);
 
 
+    int insert(SysRole sysRole);
 }

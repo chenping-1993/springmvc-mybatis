@@ -51,4 +51,9 @@
         <bind name="pattern" value=" '%' + roleName + '%' "/>
         select * from sys_role where role_name like #{pattern}
     </select>
+
+    <insert id="insert" parameterType="com.cp.entity.SysRole" >
+        insert into sys_role (role_key,role_sort,data_scope)
+        values ( #{roleKey},#{roleSort},#{dataScope} )
+    </insert>
 </mapper>
