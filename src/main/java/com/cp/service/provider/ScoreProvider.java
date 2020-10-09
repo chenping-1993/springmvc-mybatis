@@ -1,6 +1,8 @@
 package com.cp.service.provider;
 
 import com.cp.entity.Score;
+import org.apache.ibatis.jdbc.SQL;
+import org.springframework.util.StringUtils;
 
 /**
  * @Author: chenping
@@ -9,10 +11,19 @@ import com.cp.entity.Score;
 public class ScoreProvider {
 
     public String getListSql(Score score) {
-        StringBuffer sqlList = new StringBuffer();
-        sqlList.append(" select subject,score,stu_id as stuId  from score where 1= 1 ");
-//        sqlList.append(" ioh.audit_time as auditing_time,ioh.update_time as update_time,ioh.pay_time as pay_time, ");
-//        sqlList.append(" ioh.plate_no, ioh.order_status, ioh.plate_color, ioh.card_type, ioh.tw_order_no, ");
-        return sqlList.toString();
+        SQL sql = new SQL();
+
+        StringBuffer selectColumns = new StringBuffer();
+        selectColumns.append(" subject,score,stu_id as stuId");
+
+        sql.SELECT(selectColumns.toString());
+        sql.FROM(" score ");
+        if (!StringUtils.isEmpty(score.getSubject())) {
+            sql.WHERE(" subject = #{subject}");
+        }
+        if (null != score.getScore()) {
+            sql.WHERE(" score = #{score}");
+        }
+        return sql.toString();
     }
 }
