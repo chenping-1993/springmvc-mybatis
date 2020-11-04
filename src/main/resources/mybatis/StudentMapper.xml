@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cp.mapper.StudentMapper">
+
+  <!-- 批量插入 -->
+  <insert id="xmlBatchInsert">
+    INSERT INTO student(name,age,city)  VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.name},
+      #{item.age},
+      #{item.city})
+    </foreach>
+  </insert>
+
+  <!-- in 查询 -->
+  <select id="selectListWithList" resultType="com.cp.entity.Student">
+    select id,name,age,city,update_time updateTime from student where name in
+    <foreach collection="list" index="index" item="list" open="(" close=")" separator=",">
+      #{list.name}
+    </foreach>
+  </select>
+
+  <!-- like 查询 -->
+  <select id="selectListWithLike" resultType="com.cp.entity.Student">
+    select id,name,age,city,update_time updateTime from student
+    <where>
+
+      <if test="name != null and name !=''">
+        <!-- Oracle postgresql like 使用 || -->
+        <!-- and name like '%'||#{name}||'%' -->
+
+        <!-- mysql like 使用 concat 或者 "%"直接连接条件，直接连接 "%" 注意%是使用 "" 包含-->
+        <!--and name like concat('%',#{name},'%')-->
+        and name like "%"#{name}"%"
+      </if>
+
+    </where>
+</select>
+
+<!-- 时间区间 查询 -->
+  <select id="selectListWithTime" resultType="com.cp.entity.Student">
+    select id,name,age,city,update_time updateTime from student
+      <where>
+
+        <if test="startTime != null and startTime !='' and endTime != null and endTime !=''">
+          <!-- oracle string 转时间 to_date -->
+          <!--and update_time between to_date(#{startTime},'yyyy-MM-dd hh24:mi:ss') and to_date(#{endTime},'yyyy-MM-dd hh24:mi:ss')-->
+
+          <!-- postgresql string 转时间 to_timestamp -->
+          <!-- and update_time between to_timestamp(#{startTime},'yyyy-MM-dd hh24:mi:ss') and to_timestamp(#{endTime},'yyyy-MM-dd hh24:mi:ss')-->
+
+          <!-- mysql string 转时间 STR_TO_DATE -->
+          and update_time between STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+        </if>
+      </where>
+  </select>
+</mapper>
