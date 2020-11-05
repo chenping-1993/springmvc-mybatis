@@ -54,6 +54,14 @@ public class TestMybatisXml {
     }
 
     @Test
+    public void selectWithEndTime() {
+        Student student = new Student();
+        student.setEndTime("2020-11-02 11:06:41");
+        List<Student> resultList = studentMapper.selectWithEndTime(student);
+        System.out.println(JSONObject.toJSONString(resultList));
+    }
+
+    @Test
     public void batchInsert() {
         List<Student> list = new ArrayList<>();
         Student student = new Student();

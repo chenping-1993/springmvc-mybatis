@@ -54,4 +54,17 @@
         </if>
       </where>
   </select>
+
+  <!-- 时间 查询 -->
+  <select id="selectWithEndTime" resultType="com.cp.entity.Student">
+    select id,name,age,city,update_time updateTime from student
+    <where>
+
+      <if test="endTime != null and endTime !=''">
+
+        <!-- 大于等于>= &gt;=   小于等于 <= &lt;= -->
+        and update_time &lt;=  STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+      </if>
+    </where>
+  </select>
 </mapper>

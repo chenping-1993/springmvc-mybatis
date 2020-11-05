@@ -19,4 +19,6 @@ public interface StudentMapper {
     List<Student> selectListWithLike(Student student);
 
     List<Student> selectListWithTime(Student student);
+
+    List<Student> selectWithEndTime(Student student);
 }
