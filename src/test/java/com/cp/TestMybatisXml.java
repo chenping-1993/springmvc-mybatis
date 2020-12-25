@@ -1,7 +1,10 @@
 package com.cp;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cp.entity.Student;
+import com.cp.entity.User;
 import com.cp.mapper.StudentMapper;
+import com.cp.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,9 @@ public class TestMybatisXml {
     @Autowired
     StudentMapper studentMapper;
 
+    @Autowired
+    UserMapper userMapper;
+
 
     @Test
     public void inSelect() {
@@ -41,6 +47,20 @@ public class TestMybatisXml {
         Student student = new Student();
         student.setName("王");
         List<Student> resultList = studentMapper.selectListWithLike(student);
+        System.out.println(JSONObject.toJSONString(resultList));
+    }
+    /** 
+     * @Description:  mybatis-plus LambdaQueryWrapper 使用方式示例
+     * @param:  
+     * @return: void 
+     * @Author: chenping
+     * @Date: 2020/12/25 16:11
+     */
+    @Test
+    public void mybatisPlusLambdaQueryWrapper() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(User::getManagerId,10);
+        List<User> resultList = userMapper.selectList(lambdaQueryWrapper);
         System.out.println(JSONObject.toJSONString(resultList));
     }
 
