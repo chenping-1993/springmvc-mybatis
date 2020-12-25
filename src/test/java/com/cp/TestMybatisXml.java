@@ -1,8 +1,10 @@
 package com.cp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.cp.entity.MybatisPlusTest;
 import com.cp.entity.Student;
 import com.cp.entity.User;
+import com.cp.mapper.MybatisPlusTestMapper;
 import com.cp.mapper.StudentMapper;
 import com.cp.mapper.UserMapper;
 import org.junit.Test;
@@ -27,6 +29,9 @@ public class TestMybatisXml {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    MybatisPlusTestMapper testMapper;
 
 
     @Test
@@ -95,6 +100,16 @@ public class TestMybatisXml {
         list.add(student);
         list.add(student1);
         studentMapper.xmlBatchInsert(list);
+    }
+
+    @Test
+    public void MybatisPlusTest() {
+
+        MybatisPlusTest test = new MybatisPlusTest();
+       test.setAge(22);
+       test.setName("test01");
+        testMapper.insert(test);
+        System.out.println(test);
     }
 
 }
