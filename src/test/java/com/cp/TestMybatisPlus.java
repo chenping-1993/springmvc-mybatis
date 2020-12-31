@@ -1,6 +1,7 @@
 package com.cp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cp.entity.MybatisPlusTest;
 import com.cp.mapper.MybatisPlusTestMapper;
 import org.junit.Test;
@@ -92,6 +93,23 @@ public class TestMybatisPlus {
         test.setName("test006");
         testMapper.update(test,lambdaQueryWrapper);
         System.out.println(test);
+    }
+
+    /** 
+     * @Description:  distinct limit 查询方式示例
+     * @param:  
+     * @return: void 
+     * @Author: chenping
+     * @Date: 2020/12/31 10:32
+     */
+    @Test
+    public void MybatisPlusTestDistinctLimitSelect() {
+
+        QueryWrapper<MybatisPlusTest> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("distinct name");
+        queryWrapper.last("limit 3");
+        List<MybatisPlusTest> distinctLimitSelect = testMapper.selectList(queryWrapper);
+        System.out.println(distinctLimitSelect);
     }
 
 }
