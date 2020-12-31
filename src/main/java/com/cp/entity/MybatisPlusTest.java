@@ -1,9 +1,7 @@
 package com.cp.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -20,10 +18,8 @@ public class MybatisPlusTest {
 
     private Integer age;
 
-    @TableField(value = "create_time")
     private Date createTime;
 
-    @TableField(value = "update_time")
     private Date updateTime;
 
 }

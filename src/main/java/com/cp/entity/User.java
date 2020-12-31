@@ -18,7 +18,7 @@ public class User {
 
     private Integer age;
 
-    @TableField(value = "manager_id")
+//    @TableField(value = "manager_id")//默认的是下划线驼峰，不用指定数据库字段名
     private Integer managerId;
 
     /**
