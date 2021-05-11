@@ -56,4 +56,21 @@
         insert into sys_role (role_key,role_sort,data_scope)
         values ( #{roleKey},#{roleSort},#{dataScope} )
     </insert>
+
+    <!-- foreach select 查询条件有list数据  -->
+    <select id="testMybatisWithListParam" resultMap="sysRole">
+        select * from sys_role
+        <where>
+            <if test=" roleName != null and roleName != ''">
+                and role_name like concat('%',#{roleName},'%')
+            </if>
+            <if test="status != null and status.size() > 0 ">
+                      and status in
+                <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
 </mapper>

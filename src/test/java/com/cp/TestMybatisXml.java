@@ -1,11 +1,14 @@
 package com.cp;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.cp.controller.dto.SysRoleDTO;
 import com.cp.entity.MybatisPlusTest;
 import com.cp.entity.Student;
+import com.cp.entity.SysRole;
 import com.cp.entity.User;
 import com.cp.mapper.MybatisPlusTestMapper;
 import com.cp.mapper.StudentMapper;
+import com.cp.mapper.SysRoleMapper;
 import com.cp.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +32,9 @@ public class TestMybatisXml {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    SysRoleMapper sysRoleMapper;
 
     @Autowired
     MybatisPlusTestMapper testMapper;
@@ -110,6 +116,27 @@ public class TestMybatisXml {
        test.setName("test01");
         testMapper.insert(test);
         System.out.println(test);
+    }
+
+    /**
+     * @Description:  查询条件有list数据
+     * @param:
+     * @return: void
+     * @Author: chenping
+     * @Date: 2021/5/11 14:45
+     */
+    @Test
+    public void testMybatisWithListParam() {
+
+        SysRoleDTO dto = new SysRoleDTO();
+        List<String> status = new ArrayList<>();
+        status.add("1");
+        status.add("2");
+        status.add("3");
+        dto.setStatus(status);
+        dto.setRoleName("b");
+        List<SysRole> list = sysRoleMapper.testMybatisWithListParam(dto);
+        System.out.println(list);
     }
 
 }

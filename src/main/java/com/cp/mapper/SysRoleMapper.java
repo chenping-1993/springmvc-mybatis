@@ -1,5 +1,6 @@
 package com.cp.mapper;
 
+import com.cp.controller.dto.SysRoleDTO;
 import com.cp.entity.SysRole;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface SysRoleMapper  {
 
 
     int insert(SysRole sysRole);
+
+    List<SysRole> testMybatisWithListParam(SysRoleDTO dto);
 }
